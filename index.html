@@ -6,6 +6,7 @@
         integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="todo-list.js">
     
     <title>Document</title>
 </head>
@@ -63,7 +64,7 @@
         </div>
             
      </div>
-        <div class="col-start-2 col-end-3 row-start-1 row-end-2">
+        <div class=" col-start-2  col-end-3  row-start-1 row-end-2">
             <input type="search" placeholder="      Search..." class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:border-sky-900 mt-10 ml-5 ">
             <i class="fa-solid fa-magnifying-glass -mt-7 ml-8"></i>
         </div>
@@ -75,23 +76,22 @@
             <h3 class="text-3xl font-bold  mt-6">TASKS OVERVIEW</h3>
            <button  onclick="togglePopup()" class="bg-sky-900 flex justify-center w-10 h-10 mt-6 rounded-full "> <i class="fa-solid fa-plus text-2xl mt-1"></i> </button>  
         </div>
-        <div class=" flex justify-around col-start-2 col-end-3 row-start-3 row-end-4 -mt-3 rounded-xl bg-neutral-300 h-[633%] gap-[50%]">
-            <h3 class="text-xl font-bold mt-2" >To do</h3>
-            <i class="fa-solid fa-ellipsis text-xl mt-2"></i>
+        <div class="col-start-2 col-end-3 row-start-3 row-end-6 -mt-3 rounded-xl bg-neutral-300 h-full ">
+            <h3 class="text-xl font-bold mt-2 ml-3" >To do (<span id="todoCount">0</span>)</h3>
+            <i class="fa-solid fa-ellipsis text-xl -mt-[8%] ml-[90%]"></i>
+            <ul id="todoList" class="mt-5 space-y-2"></ul> 
         </div>
-        <div class="col-start-2 col-end-3 row-start-4 row-end-5 -mt-3 rounded-xl bg-neutral-300 h-[505%] gap-[50%]">
-            <ul id="taskList" class="-mt-9 space-y-2  ">
-                
-            </ul> 
+        
+        <div class="  col-start-3 col-end-4 row-start-3 row-end-6 -mt-3 rounded-xl bg-neutral-300 h-full ">
+            <h3 class="text-xl font-bold mt-2 ml-3" >In progress (<span id="inProgressCount">0</span>)</h3>
+            <i class="fa-solid fa-ellipsis text-xl -mt-[8%] ml-[90%]"></i>
+            <ul id="inProgressList" class="mt-5 space-y-2"></ul>
+            
         </div>
-
-        <div class=" flex justify-around col-start-3 col-end-4 row-start-3 row-end-4 -mt-3 rounded-xl bg-neutral-300 h-[633%] gap-[50%]">
-            <h3 class="text-xl font-bold mt-2" >In progress</h3>
-            <i class="fa-solid fa-ellipsis text-xl mt-2"></i>
-        </div>
-        <div class=" flex justify-around col-start-4 col-end-5 row-start-3 row-end-4 -mt-3 rounded-xl bg-neutral-300 h-[633%] gap-[50%]">
-            <h3 class="text-xl font-bold mt-2" >Completed</h3>
-            <i class="fa-solid fa-ellipsis text-xl mt-2"></i>
+        <div class=" col-start-4 col-end-5 row-start-3 row-end-6 -mt-3 rounded-xl bg-neutral-300 h-full ">
+            <h3 class="text-xl font-bold mt-2 ml-3" >Completed (<span id="completedCount">0</span>)</h3>
+            <i class="fa-solid fa-ellipsis text-xl -mt-[8%] ml-[90%]"></i>
+            <ul id="completedList" class="mt-5 space-y-2"></ul>
         </div>
     </div>
 
@@ -100,8 +100,14 @@
         <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
             <h2 class="text-2xl font-bold mb-4">Add a Task</h2>
             <input id="taskInput" type="text" placeholder="Enter Title" class="w-full p-2 border border-gray-300 rounded mb-4">
-            <input id="taskInput" type="text" placeholder="Enter Description" class="w-full p-2 border border-gray-300 rounded mb-4">
-            <input id="taskInput" type="text" placeholder="Enter Value" class="w-full p-2 border border-gray-300 rounded mb-4">
+            <input id="taskInput2" type="text" placeholder="Enter Description" class="w-full p-2 border border-gray-300 rounded mb-4">
+            <input id="taskInput3" type="text" placeholder="Enter Value" class="w-full p-2 border border-gray-300 rounded mb-4">
+            <input id="taskInput4" type="time" name="appt" min="09:00" max="18:00" required />
+            <select id="taskStatus" class="w-full p-2 border border-gray-300 rounded mb-4 mt-2">
+                <option value="todo">To Do</option>
+                <option value="inProgress">In Progress</option>
+                <option value="completed">Completed</option>
+            </select>
             <div class="flex justify-end gap-2">
                 <button onclick="addTask()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add</button>
                 <button onclick="togglePopup()" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Cancel</button>
@@ -115,43 +121,113 @@
             popup.classList.toggle("hidden");  
         }
     
-        function addTask() {
-    const taskInput = document.getElementById("taskInput");
-    const taskText = taskInput.value.trim();
-
-    if (taskText) {
-        const taskList = document.getElementById("taskList");
-
-       
-        const taskItem = document.createElement("li");
-        taskItem.className = "flex justify-between items-center p-2 bg-gray-100 rounded shadow";
-
-       
-        const taskSpan = document.createElement("span");
-        taskSpan.innerText = taskText;
-
-  
-        const removeButton = document.createElement("button");
-        removeButton.innerText = "Remove";
-        removeButton.className = "ml-4 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600";
-        
-       
-        removeButton.onclick = function () {
-            taskList.removeChild(taskItem);
-        };
-
-       
-        taskItem.appendChild(taskSpan);
-        taskItem.appendChild(removeButton);
-
-        
-        taskList.appendChild(taskItem);
-
-       
-        taskInput.value = "";
-        togglePopup();
-    }
+        function updateTaskCount() {
+    document.getElementById("todoCount").innerText = document.getElementById("todoList").children.length;
+    document.getElementById("inProgressCount").innerText = document.getElementById("inProgressList").children.length;
+    document.getElementById("completedCount").innerText = document.getElementById("completedList").children.length;
 }
+function addTask() {
+        const taskInput = document.getElementById("taskInput");
+        const taskText = taskInput.value.trim();
+
+        const taskInput2 = document.getElementById("taskInput2");
+        const taskText2 = taskInput2.value.trim();
+
+        const taskInput3 = document.getElementById("taskInput3");
+        const taskText3 = taskInput3.value.trim();
+
+        const taskInput4 = document.getElementById("taskInput4");
+        const taskText4 = taskInput4.value;
+
+        const taskStatus = document.getElementById("taskStatus").value;
+
+        if (taskText && taskText2 && taskText3 && taskText4) {
+           let taskList ;
+            
+            if (taskStatus === "todo") {
+                taskList = document.getElementById("todoList");
+            } else if (taskStatus === "inProgress") {
+                taskList = document.getElementById("inProgressList");
+            } else if (taskStatus === "completed") {
+                taskList = document.getElementById("completedList");
+            }
+
+            // Create list item for each task
+            const taskItem = document.createElement("li");
+            taskItem.className = "p-2 bg-gray-100 rounded shadow mb-2";
+
+            // Create a container for title and description
+            const taskContent = document.createElement("div");
+            taskContent.className = "flex flex-col";
+
+            // Create title element
+            const taskTitle = document.createElement("strong");
+            taskTitle.innerText = taskText;
+            taskTitle.className = "text-lg";
+
+            // Create description element
+            const taskDescription = document.createElement("p");
+            taskDescription.innerText = taskText2;
+            taskDescription.className = "text-gray-600";
+
+            // Create value element
+            const taskValue = document.createElement("span");
+            taskValue.innerText = taskText3;
+            taskValue.className = "text-gray-500 italic";
+
+            const taskDATE = document.createElement("span");
+            taskDATE.innerText  = taskText4;
+            taskDATE.className = "text-gray-500"; 
+            
+
+            // Append title, description, and value in order
+            taskContent.appendChild(taskTitle);
+            taskContent.appendChild(taskDescription);
+            taskContent.appendChild(taskValue);
+            taskContent.appendChild(taskDATE);
+            taskList.appendChild(taskItem);
+
+            // Create remove button
+            const removeButton = document.createElement("button");
+            removeButton.innerText = "Remove";
+            removeButton.className = "mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600";
+            removeButton.onclick = function () {
+                taskList.removeChild(taskItem);
+                updateTaskCount();
+            };
+            const editButton = document.createElement("button");
+            editButton.innerText = "Edit";
+            editButton.className = "mr-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600";
+            editButton.onclick = function () {
+                document.getElementById("taskInput").value = taskText;
+                document.getElementById("taskInput2").value = taskText2;
+                document.getElementById("taskInput3").value = taskText3;
+                document.getElementById("taskInput4").value = taskText4;
+                document.getElementById("taskStatus").value = taskStatus;
+                togglePopup();
+                updateTaskCount();
+                taskList.removeChild(taskItem);
+            };
+
+            // Append content and button to task item
+            taskItem.appendChild(taskContent);
+            taskItem.appendChild(editButton);
+            taskItem.appendChild(removeButton);
+
+            // Add task item to the task list
+            
+
+            // Clear input fields
+            taskInput.value = "";
+            taskInput2.value = "";
+            taskInput3.value = "";
+            taskInput4.value = "";
+            document.getElementById("taskStatus").value = "todo";
+            // Hide the popup
+            togglePopup();
+            updateTaskCount();
+        }
+    }
     </script> 
 </body>
 </html>
