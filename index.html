@@ -11,7 +11,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="grid grid-cols-[1fr_1fr_1fr_1fr] grid-rows-[repeat(12,_1fr)] gap-6">
+    <div class="grid lg:grid-cols-[1fr_1fr_1fr_1fr] grid-rows-[repeat(12,_1fr)] gap-6 ">
      <div class="col-start-1 col-end-2 row-start-1 row-end-12 bg-sky-900 h-[65%] hidden lg:block">
             <h1 class=" text-white mt-9 ml-[20%] text-3xl" alt="logo">TASK FLOW</h1>
         <div class="flex justify-around ">
@@ -72,48 +72,76 @@
             <i class="fa-regular fa-bell text-xl"></i>
             <img src="images/profil.jpg" class="rounded-full w-10 h-10 " alt="profil">
         </div>
-        <div class=" flex justify-around col-start-2 col-end-6 row-start-2 row-end-3 gap-[50%]">
+        <div class=" flex justify-around col-start-2 col-end-6 row-start-2 row-end-3 lg:gap-[50%]">
             <h3 class="text-3xl font-bold  mt-6">TASKS OVERVIEW</h3>
            <button  id="plus" class="bg-sky-900 flex justify-center w-10 h-10 mt-6 rounded-full "> <i class="fa-solid fa-plus text-2xl mt-1"></i> </button>  
         </div>
-        <div class="col-start-2 col-end-3 row-start-3 row-end-6 -mt-3 rounded-xl bg-neutral-300 h-full ">
+        <div class="col-start-2 col-end-3  row-start-3 row-end-6 -mt-3 rounded-xl bg-neutral-300 h-full  ">
             <h3 class="text-xl font-bold mt-2 ml-3" >To do (<span id="todoCount">0</span>)</h3>
             <i class="fa-solid fa-ellipsis text-xl -mt-[8%] ml-[90%] hidden lg:block"></i>
             <ul id="todoList" class="mt-5 space-y-2"></ul> 
         </div>
         
         <div class="  col-start-3 col-end-4 row-start-3 row-end-6 -mt-3 rounded-xl bg-neutral-300 h-full ">
-            <h3 class="text-xl font-bold mt-2 ml-3" >In progress (<span id="inProgressCount">0</span>)</h3>
+            <h3 class="text-xl font-bold mt-2 lg:ml-3" >In progress (<span id="inProgressCount">0</span>)</h3>
             <i class="fa-solid fa-ellipsis text-xl -mt-[8%] ml-[90%] hidden lg:block"></i>
             <ul id="inProgressList" class="mt-5 space-y-2"></ul>
             
         </div>
         <div class=" col-start-4 col-end-5 row-start-3 row-end-6 -mt-3 rounded-xl bg-neutral-300 h-full ">
-            <h3 class="text-xl font-bold mt-2 ml-3" >Completed (<span id="completedCount">0</span>)</h3>
+            <h3 class="text-xl font-bold mt-2 lg:ml-3" >Completed (<span id="completedCount">0</span>)</h3>
             <i class="fa-solid fa-ellipsis text-xl -mt-[8%] ml-[90%] hidden lg:block"></i>
             <ul id="completedList" class="mt-5 space-y-2"></ul>
         </div>
     </div>
 
     <!---------------------------------------------------- MY POP UP -------------------------------------- -->
-    <div id="taskPopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-        <div class="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
-            <h2 class="text-2xl font-bold mb-4">Add a Task</h2>
-            <input id="taskInput" type="text" placeholder="Enter Title" class="w-full p-2 border border-gray-300 rounded mb-4">
-            <input id="taskInput2" type="text" placeholder="Enter Description" class="w-full p-2 border border-gray-300 rounded mb-4">
-            <input id="taskInput3" type="text" placeholder="Enter Value" class="w-full p-2 border border-gray-300 rounded mb-4">
-            <input id="taskInput4" type="time" name="appt" min="09:00" max="18:00" required />
-            <select id="taskStatus" class="w-full p-2 border border-gray-300 rounded mb-4 mt-2">
-                <option value="todo">To Do</option>
-                <option value="inProgress">In Progress</option>
-                <option value="completed">Completed</option>
-            </select>
-            <div class="flex justify-end gap-2">
-                <button id="addbutton" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">Add</button>
-                <button  id="plus1" class="px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600">Cancel</button>
+    <div id="taskPopup" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 hidden">
+        <div class="bg-gradient-to-r from-indigo-50 via-white to-indigo-50 p-8 rounded-xl shadow-2xl transform scale-95 w-full max-w-lg transition-all duration-300 ease-in-out">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6 text-center">Create New Task</h2>
+            
+            <!-- Title Input -->
+            <div class="mb-4">
+                <label for="taskInput" class="block text-gray-600 mb-1 font-medium">Title</label>
+                <input id="taskInput" type="text" placeholder="Enter Title" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"/>
+            </div>
+            
+            <!-- Description Input -->
+            <div class="mb-4">
+                <label for="taskInput2" class="block text-gray-600 mb-1 font-medium">Description</label>
+                <input id="taskInput2" type="text" placeholder="Enter Description" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"/>
+            </div>
+            
+            <!-- Value Input -->
+            <div class="mb-4">
+                <label for="taskInput3" class="block text-gray-600 mb-1 font-medium">Value</label>
+                <input id="taskInput3" type="text" placeholder="Enter Value" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"/>
+            </div>
+            
+            <!-- Time Input -->
+            <div class="mb-4">
+                <label for="taskInput4" class="block text-gray-600 mb-1 font-medium">Time</label>
+                <input id="taskInput4" type="time" name="appt" min="09:00" max="18:00" required class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition"/>
+            </div>
+            
+            <!-- Status Select -->
+            <div class="mb-6">
+                <label for="taskStatus" class="block text-gray-600 mb-1 font-medium">Status</label>
+                <select id="taskStatus" class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400 transition">
+                    <option value="todo">To Do</option>
+                    <option value="inProgress">In Progress</option>
+                    <option value="completed">Completed</option>
+                </select>
+            </div>
+            
+            <!-- Buttons -->
+            <div class="flex justify-end gap-4">
+                <button id="addbutton" class="px-5 py-2 bg-indigo-500 text-white rounded-lg font-medium hover:bg-indigo-600 transition duration-200">Add</button>
+                <button id="plus1" class="px-5 py-2 bg-gray-300 text-gray-700 rounded-lg font-medium hover:bg-gray-400 transition duration-200">Cancel</button>
             </div>
         </div>
     </div>
+    
 
     <script src="todo-list.js"></script>
 </body>
