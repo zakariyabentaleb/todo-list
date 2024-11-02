@@ -1,14 +1,26 @@
 
-function togglePopup() {
-    const popup = document.getElementById("taskPopup");
-    popup.classList.toggle("hidden");  
+// ------------------SHOW POPUP AND HIDE IT  ------------------------//
+plus.addEventListener("click", togglePopup);
+plus1.addEventListener("click", togglePopup);
+function togglePopup(){
+  const pop=document.getElementById("taskPopup");
+  pop.classList.toggle("hidden");
 }
 
+// ----------------------------COUNT TASK--------------------------------------------//
+function updatecount(){
+document.getElementById("todoCount").innerText=document.getElementById("todoList").children.length;
+document.getElementById("inProgressCount").innerText=document.getElementById("inProgressList").children.length;
+document.getElementById("completedCount").innerText=document.getElementById("completedList").children.length;
+}
+// --
 function updateTaskCount() {
 document.getElementById("todoCount").innerText = document.getElementById("todoList").children.length;
 document.getElementById("inProgressCount").innerText = document.getElementById("inProgressList").children.length;
 document.getElementById("completedCount").innerText = document.getElementById("completedList").children.length;
 }
+// ------------------ add button  ------------------------------------------------------------------------------//
+addbutton.addEventListener("click", addTask);
 function addTask() {
 const taskInput = document.getElementById("taskInput");
 const taskText = taskInput.value.trim();
@@ -38,8 +50,6 @@ if (taskText && taskText2 && taskText3 && taskText4) {
    
     const taskItem = document.createElement("li");
     taskItem.className = "p-2 bg-gray-100 rounded shadow mb-2";
-
-    
     const taskContent = document.createElement("div");
     taskContent.className = "flex flex-col";
 
@@ -70,7 +80,8 @@ if (taskText && taskText2 && taskText3 && taskText4) {
     taskContent.appendChild(taskDATE);
     taskList.appendChild(taskItem);
 
-    
+             // -------------------------------------remove button---------------------------------------------//
+
     const removeButton = document.createElement("button");
     removeButton.innerText = "Remove";
     removeButton.className = "mt-2 px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600";
@@ -78,6 +89,8 @@ if (taskText && taskText2 && taskText3 && taskText4) {
         taskList.removeChild(taskItem);
         updateTaskCount();
     };
+              // -------------------------------------edit button ---------------------------------------------// 
+
     const editButton = document.createElement("button");
     editButton.innerText = "Edit";
     editButton.className = "mr-2 px-2 py-1 bg-blue-500 text-white rounded hover:bg-blue-600";
@@ -97,7 +110,6 @@ if (taskText && taskText2 && taskText3 && taskText4) {
     taskItem.appendChild(editButton);
     taskItem.appendChild(removeButton);
 
-    
     taskInput.value = "";
     taskInput2.value = "";
     taskInput3.value = "";
