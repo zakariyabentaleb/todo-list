@@ -1,5 +1,5 @@
 # TaskFlow - To Do List Application
- ![TaskFlow App Screenshot](images/Capture d'écran 2024-11-01 212444.png)
+ ![TaskFlow App Screenshot](/images/PROJECT-SCREEN.png)
 ## Contexte du projet
 
 TaskFlow est une application de gestion de tâches développée pour améliorer l'efficacité des équipes en leur offrant un moyen simple de gérer, organiser, et suivre leurs tâches. Conçue pour les projets collaboratifs, cette application permet aux utilisateurs de créer des tâches, de suivre leur progression, de les organiser par priorité, et de faciliter la planification des projets.
