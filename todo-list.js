@@ -8,12 +8,6 @@ function togglePopup() {
 }
 
 // ----------------------------COUNT TASK--------------------------------------------//
-function updatecount() {
-    document.getElementById("todoCount").innerText = document.getElementById("todoList").children.length;
-    document.getElementById("inProgressCount").innerText = document.getElementById("inProgressList").children.length;
-    document.getElementById("completedCount").innerText = document.getElementById("completedList").children.length;
-}
-// --
 function updateTaskCount() {
     document.getElementById("todoCount").innerText = document.getElementById("todoList").children.length;
     document.getElementById("inProgressCount").innerText = document.getElementById("inProgressList").children.length;
@@ -84,7 +78,7 @@ function addTask() {
         taskList.appendChild(taskItem);
 
         // -------------------------------------remove button---------------------------------------------//
-
+       
         const removeButton = document.createElement("button");
         removeButton.innerText = "Remove";
         removeButton.className = "px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600";
@@ -123,3 +117,24 @@ function addTask() {
         updateTaskCount();
     }
 }
+
+function filterTasksByTitle() {
+    const searchQuery = document.getElementById("searchInput").value.toLowerCase();
+    
+   
+    const lists = [document.getElementById("todoList"), document.getElementById("inProgressList"), document.getElementById("completedList")];
+
+    lists.forEach(list => {
+        Array.from(list.children).forEach(task => {
+            const title = task.querySelector("strong").innerText.toLowerCase();
+            
+          
+            if (title.includes(searchQuery)) {
+                task.style.display = ""; 
+            } else {
+                task.style.display = "none"; 
+            }
+        });
+    });
+}
+
